@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography,forms"></script>
+    <title>Formulaire de commentaires</title>
 </head>
-<body class="antialiased font-sans bg-white">
-    <script src="app.js"></script>
+<body id="body" class="antialiased font-sans bg-white">
+   
     <div>
       <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6">      
         <div class="bg-white">
@@ -41,6 +42,15 @@
                       <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae accusantium quae doloribus. Nobis ipsam libero asperiores a velit ab nemo facere molestias quisquam. Libero, repudiandae dignissimos. Doloribus hic placeat soluta?</p>
                     </div>
                   </div>
+                </div>
+
+                <div class="flex space-x-4 text-sm text-gray-500">
+                    <div class="flex-1 py-10 border-t border-gray-200">
+                        <h3 id="nomPrenom" class="font-medium text-gray-900"></h3>
+                        <div id="divParagraphe" class="prose prose-sm mt-4 max-w-none text-gray-500">
+                            <!--<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae accusantium quae doloribus. Nobis ipsam libero asperiores a velit ab nemo facere molestias quisquam. Libero, repudiandae dignissimos. Doloribus hic placeat soluta?</p>-->
+                        </div>
+                    </div>
                 </div>
               
             </div>
@@ -86,8 +96,8 @@
                 <textarea id="message" name="message" rows="4" maxlength="500" class="block w-full rounded-md border-warm-gray-300 py-3 px-4 text-warm-gray-900 shadow-sm focus:border-teal-500 focus:ring-teal-500" aria-describedby="message-max"></textarea>
               </div>
             </div>
-            <div class="sm:col-span-2 sm:flex sm:justify-end">
-              <button type="submit" class="mt-2 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:w-auto">
+            <div id="boutonEnvoyer" class="sm:col-span-2 sm:flex sm:justify-end">
+              <button type="submit" onclick="nouveau()" id="envoyer" class="mt-2 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:w-auto" >
                 Envoyer
               </button>
             </div>
@@ -95,6 +105,39 @@
         </div>
       </div>
     </div>
-  </div>
-  </body>
-  </html>
+    <script>
+        function nouveau(){
+        let prenom = document.getElementById("first-name");
+        let nom = document.getElementById("last-name");
+        let message = document.getElementById("message");
+        let nomPrenom = document.getElementById("nomPrenom");
+        if(prenom.value==""){
+            alert("Aucun prénom renseigné - Tous les champs doivent être remplis");
+            return false;
+        }
+        if(nom.value==""){
+            alert("Aucun nom renseigné - Tous les champs doivent être remplis");
+            return false;
+        }
+        if(message.value==""){
+            alert("Aucun commentaire renseigné - Tous les champs doivent être remplis");
+            return false;
+        }
+        let nomPrenomContent = document.createTextNode(prenom.value + " " + nom.value);
+        nomPrenom.appendChild(nomPrenomContent);    
+        let divParagraphe = document.getElementById("divParagraphe");
+        let paragraphe = document.createElement("p");
+        let paragrapheContent = document.createTextNode(message.value);
+        paragraphe.appendChild(paragrapheContent);
+        divParagraphe.appendChild(paragraphe);
+           
+        }
+    
+        formulaire.onsubmit = () => {
+            formulaire.reset();
+            return false;
+        }
+    </script>
+    <!--<script src="app.js"></script>-->
+</body>
+</html>
